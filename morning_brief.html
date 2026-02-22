@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mission Control</title>
+    <style>
+        :root { --bg: #0b0f19; --card: #161b22; --text: #e6edf3; --accent: #58a6ff; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; }
+        
+        header { padding: 40px; padding-bottom: 20px; text-align: center; border-bottom: 1px solid #30363d; }
+        #time { font-size: 3.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+        #weather-top { margin-top: 10px; font-size: 1.2rem; color: #8b949e; }
+        
+        .main-layout { display: grid; grid-template-columns: 350px 1fr; gap: 20px; padding: 50px; flex-grow: 1; overflow: hidden; padding-top: 25px }
+        .column { display: flex; flex-direction: column; gap: 20px; }
+        .widget { background: var(--card); border: 1px solid #30363d; border-radius: 12px; padding: 15px; display: flex; flex-direction: column; }
+        .widget-header { font-weight: bold; margin-bottom: 10px; color: var(--accent); border-bottom: 1px solid #30363d; padding-bottom: 5px; }
+        
+        iframe { width: 100%; height: 100%; border: none; border-radius: 8px; background: white; }
+
+        footer { padding: 20px; text-align: center; background: #0d1117; }
+        .btn { background: #30363d; color: var(--accent); padding: 15px 50px; border-radius: 6px; font-size: 1.2rem; font-weight: bold; text-decoration: none; display: inline-block; }
+        .btn:hover { color: white; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div id="time">00:00</div>
+        <div id="date">Loading Date...</div> 
+    </div>
+
+        <div id="weather-top" class="widget">
+            <div class="widget-header">3-Day Weather Forecast</div>
+            <a class="weatherwidget-io" href="https://forecast7.com/" data-label_1="" data-label_2="WEATHER" data-icons="Climacons Animated" data-days="3" data-theme="weather_one" >WEATHER</a>
+            <script>
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+            </script>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <div class="widget">
+            <div class="widget-header">Today's Detailed Agenda</div>
+            <iframe src=""></iframe>
+        </div>
+
+        <div class="widget">
+            <div class="widget-header">Monthly Overview</div>
+            <iframe src=""></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <a href="https://www.opentimeclock.com/" class="btn">LOG IN & START DAY</a>
+    </footer>
+
+    <script>
+    function updateTime() {
+        const now = new Date();
+        
+        // Update Time
+        document.getElementById('time').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        
+        // Update Date (Example: Thursday, February 19)
+        const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+        document.getElementById('date').innerText = now.toLocaleDateString(undefined, dateOptions);
+    }
+    
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
+</body>
+</html>
